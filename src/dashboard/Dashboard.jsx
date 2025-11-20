@@ -1,13 +1,8 @@
 import React from 'react'
-import CustomLayout from '../components/layout/CustomLayout'
 
 function Dashboard() {
   return (
-    <div>
-        <CustomLayout>
-        
-        </CustomLayout>
-    </div>
+    <div>Dashboard</div>
   )
 }
 

@@ -2,8 +2,9 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from './auth/Login';
-import Dashboard from './dashboard/Dashboard';
+import Dashboard from './dashboard/Page';
 import ProtectedRoute from './components/layout/ProtectedRoute';
+import UsersList from './dashboard/users/UsersList';
 function App() {
 
 
@@ -21,13 +22,15 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route
-          path="/dashboard"
+          path="/dashboard/*"
           element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
         />
+
+        
       </Routes>
     </BrowserRouter>
   )

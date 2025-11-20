@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
+import { useNavigate } from 'react-router-dom';
 const items = [
     {
         key: '1',
         icon: <MailOutlined />,
         label: 'User Management',
         children: [
-            { key: '11', label: 'Users' },
+            { key: '11', label: 'Users', path: '/dashboard/users' },
             { key: '12', label: 'Roles' },
         ],
     },
@@ -17,10 +18,10 @@ const items = [
         label: 'Blog Management',
         children: [
             { key: '21', label: 'Posts' },
-        
+
         ],
     },
-   
+
 ];
 const getLevelKeys = items1 => {
     const key = {};
@@ -39,6 +40,7 @@ const getLevelKeys = items1 => {
 };
 const levelKeys = getLevelKeys(items);
 const Menues = () => {
+     const navigate = useNavigate(); 
     const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
     const onOpenChange = openKeys => {
         const currentOpenKey = openKeys.find(key => !stateOpenKeys.includes(key));
@@ -59,6 +61,24 @@ const Menues = () => {
             setStateOpenKeys(openKeys);
         }
     };
+    const handleMenu = ({ key, keyPath, domEvent }) => {
+        const findItem = (itemsList) => {
+            for (let item of itemsList) {
+                if (item.key === key && item.path) return item;
+                if (item.children) {
+                    const found = findItem(item.children);
+                    if (found) return found;
+                }
+            }
+            return null;
+        };
+
+        const item = findItem(items);
+        if (item?.path) {
+            navigate(item.path);
+        }
+
+    }
     return (
         <Menu
             mode="inline"
@@ -67,6 +87,7 @@ const Menues = () => {
             onOpenChange={onOpenChange}
             style={{ width: '100%' }}
             items={items}
+            onClick={handleMenu}
         />
     );
 };
