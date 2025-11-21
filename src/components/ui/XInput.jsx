@@ -4,11 +4,11 @@ import { Controller, useForm } from 'react-hook-form'
 
 
 function XInput(props) {
-    const { value, control, validations, placeholder, errors } = props
+    const { name, control, validations, placeholder, errors } = props
     return (
         <>
             <Controller
-                name={value}
+                name={name}
                 control={control}
                 rules={{ ...validations }}
                 render={({ field }) => (
@@ -16,14 +16,14 @@ function XInput(props) {
                         {...field}
                         placeholder={placeholder}
                         style={{ padding: '8px', fontSize: '16px', background: '#F5F5F0',border:'black'}}
-                        aria-invalid={errors[value] ? true : false}
+                        aria-invalid={errors[name] ? true : false}
                     />
 
                 )}
             />
 
             {
-                errors[value] && <p className='text-red-600' role='alert'>{errors[value]?.message}</p>
+                errors[name] && <p className='text-red-600' role='alert'>{errors[name]?.message}</p>
             }
         </>
     )

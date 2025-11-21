@@ -9,7 +9,6 @@ const items = [
         label: 'User Management',
         children: [
             { key: '11', label: 'Users', path: '/dashboard/users' },
-            { key: '12', label: 'Roles' },
         ],
     },
     {
@@ -17,7 +16,8 @@ const items = [
         icon: <AppstoreOutlined />,
         label: 'Blog Management',
         children: [
-            { key: '21', label: 'Posts' },
+            { key: '12', label: 'Posts', path: '/dashboard/posts' },
+            { key: '13', label: 'Comments', path: '/dashboard/users' },
 
         ],
     },
@@ -40,7 +40,7 @@ const getLevelKeys = items1 => {
 };
 const levelKeys = getLevelKeys(items);
 const Menues = () => {
-     const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
     const onOpenChange = openKeys => {
         const currentOpenKey = openKeys.find(key => !stateOpenKeys.includes(key));

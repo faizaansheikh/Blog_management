@@ -4,10 +4,13 @@ import CustomButton from './CustomButton';
 import { useNavigate } from 'react-router-dom';
 
 function XFormHeader(props) {
-    const { title } = props
+    const { title, id } = props
     const navigate = useNavigate();
 
     const showLabel = () => {
+        if(id){
+            return "Update Changes"
+        }
         return 'Save Changes'
     }
     return (

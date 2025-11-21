@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import FormElement from '../../components/ui/FormElement';
+import { GeneralCoreService } from '../../api/GeneralCoreService';
 
 function UsersForm() {
   const [model, setModel] = useState({
@@ -43,9 +44,9 @@ function UsersForm() {
         },
         {
           col: 12,
-          label: 'Phone',
-          key: 'phone',
-          placeholder: 'Enter Your Name',
+          label: 'Password',
+          key: 'Password',
+          placeholder: 'Enter Password',
           ChangeEv: () => { },
           type: 'input',
           validations: {
@@ -55,26 +56,38 @@ function UsersForm() {
         },
         {
           col: 12,
-          label: 'Address',
-          key: 'address',
-          placeholder: 'Enter Your Name',
+          label: 'Role',
+          key: 'role',
+          placeholder: 'Select Your role',
           ChangeEv: () => { },
-          type: 'input',
+          type: 'dropdown',
+          options: [
+            { value: 'Admin', label: <span>Admin</span> },
+            { value: 'Author', label: <span>Author</span> },
+          ],
+
           validations: {
             required: { value: true, message: 'Please fill this field' },
-            minLength: { value: 3, message: 'Min length at least 3' },
           }
-        }
+        },
       ]
     },
 
   ]
   const handleSave = (d) => {
-    console.log('d', d);
+    
+    GeneralCoreService('users').GetAll()
+      .then((res) => {
+        console.log('res', res);
+
+      }).catch(err => {
+        console.log('error', err);
+
+      })
   }
   return (
     <div>
-      <FormElement save={handleSave} setModel={setModel} model={model} elements={elems} />
+      <FormElement save={handleSave} setModel={setModel} model={model} elements={elems} title='Users' />
     </div>
   )
 }

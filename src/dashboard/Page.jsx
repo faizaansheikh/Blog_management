@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import UsersList from './users/UsersList'
 import Dashboard from './Dashboard'
 import UsersForm from './users/UsersForm'
+import PostList from './posts/PostList'
+import PostForm from './posts/PostForm'
 
 function Page() {
   return (
@@ -27,6 +29,20 @@ function Page() {
           <Route
             path="users/usersform"
             element={<UsersForm />}
+          />
+          {/* Posts */}
+
+          <Route
+            path="posts"
+            element={<PostList />}
+          />
+          <Route
+            path="posts/postform"
+            element={<PostForm />}
+          />
+          <Route
+            path="posts/postform/:id"
+            element={<PostForm />}
           />
         </Routes>
 

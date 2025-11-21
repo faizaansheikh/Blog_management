@@ -1,12 +1,12 @@
 import React from 'react'
 import Register from '../../components/ui/Register'
 
-function UsersList() {
+function PostList() {
   return (
     <div>
-      <Register formName={'auth/register'} formPath='' title="Users"/>
+      <Register formName={'posts'} formPath='postform' title="Posts"/>
     </div>
   )
 }
 
-export default UsersList
+export default PostList

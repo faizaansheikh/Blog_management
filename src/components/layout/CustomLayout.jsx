@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Flex, Layout, Popover } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 import { RxHamburgerMenu } from "react-icons/rx";
 import Menues from '../ui/Menues';
+import { useAuthToken } from '../../customHooks/useAuthToken';
+import { useNavigate } from 'react-router-dom';
 
 const footerStyle = {
     textAlign: 'center',
@@ -17,11 +19,23 @@ const layoutStyle = {
     height: '100vh'
 };
 
-const CustomLayout = ({children}) => {
+const CustomLayout = ({ children }) => {
+    const navigate = useNavigate()
     const [sliderWidth, setSliderWidth] = useState('20%')
+    const { removeToken } = useAuthToken()
+    const [userinfo, setUserInfo] = useState({})
     const handleSlider = () => {
         setSliderWidth(sliderWidth === '20%' ? '4%' : '20%')
     }
+    const handleLogout = () => {
+        removeToken()
+        navigate('/login')
+    }
+    useEffect(() => {
+        const getuser = JSON.parse(localStorage.getItem('userInfo')) || {}
+        setUserInfo(getuser);
+
+    }, [])
 
     return (
         <Flex gap="middle" wrap>
@@ -39,15 +53,17 @@ const CustomLayout = ({children}) => {
                 <Layout>
                     <Header className='bg-secondary flex justify-between items-center'>
                         <p className='text-2xl'>Blog Management</p>
-                        <div>
+                        <div className='flex items-center gap-2'>
+                            <p className='text-lg'>{userinfo?.role}</p>
                             <Popover placement="bottom" title={''}
                                 content={
                                     <div className='w-[100px]'>
-                                    <p className=' py-1 px-2 rounded-sm text-lg'>Admin</p>
-                                    <p className='cursor-pointer hover:bg-secondary py-2 px-2 rounded-sm text-lg'>Logout</p>
+                                        <p className=' py-1 px-2 rounded-sm text-lg'>{userinfo?.name}</p>
+                                        <p className='cursor-pointer hover:bg-secondary py-2 px-2 rounded-sm text-lg' onClick={handleLogout}>Logout</p>
                                     </div>
                                 }
                             >
+
                                 <Avatar className='cursor-pointer' style={{ verticalAlign: 'middle' }} size="large" >
                                     A
                                 </Avatar>

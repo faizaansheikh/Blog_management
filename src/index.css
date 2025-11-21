@@ -48,7 +48,10 @@
   border: 2px solid var(--color-secondary) !important;  
   border-radius: 8px;     
 }
-
+.ant-select {
+  border: 2px solid var(--color-secondary) !important;  
+  border-radius: 8px;     
+}
 
 .ant-input:focus, .ant-input-focused {
   border-color: green;    
